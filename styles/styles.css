@@ -125,6 +125,15 @@ main {
     margin-bottom: 1rem;
 }
 
+.data-source {
+    margin: 0.5rem 0;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
 .public-domain-status {
     padding: 1rem;
     border-radius: 6px;

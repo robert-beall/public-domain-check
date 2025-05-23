@@ -27,7 +27,14 @@ class PublicDomainApp {
             <h2 class="book-title">${this.escapeHtml(book.title)}</h2>
             <p class="book-author">by ${this.escapeHtml(book.authors.join(', '))}</p>
             
-            ${book.publishYear ? `<p><strong>First Published:</strong> ${book.publishYear}</p>` : ''}
+            ${book.publishYear ? `<p><strong>First Published:</strong> ${book.publishYear}</p>` : '<p><strong>Publication Date:</strong> Unknown</p>'}
+            
+            <div class="data-source">
+                <small>
+                    <strong>Source:</strong> ${this.getSourceDisplay(book.source)} 
+                    ${book.reliability ? `| <strong>Data Reliability:</strong> ${book.reliability}` : ''}
+                </small>
+            </div>
             
             <div class="public-domain-status ${publicDomainInfo.cssClass}">
                 <strong>Public Domain Status:</strong> ${publicDomainInfo.status}
@@ -38,6 +45,9 @@ class PublicDomainApp {
                 <p>${publicDomainInfo.explanation}</p>
                 
                 ${publicDomainInfo.additionalInfo ? `<p><em>${publicDomainInfo.additionalInfo}</em></p>` : ''}
+                
+                ${book.reliability === 'low' || book.reliability === 'medium' ? 
+                    '<p><strong>Note:</strong> The publication date for this book may not be entirely accurate. Please verify independently for legal purposes.</p>' : ''}
             </div>
         `;
 
@@ -49,6 +59,18 @@ class PublicDomainApp {
     }
 
     analyzePublicDomainStatus(book) {
+        // If this is from Project Gutenberg, it's definitely public domain
+        if (book.source === 'gutenberg' || book.isPublicDomain) {
+            return {
+                status: 'Public Domain',
+                cssClass: 'status-public-domain',
+                explanation: 'This book is confirmed to be in the public domain.',
+                additionalInfo: book.source === 'gutenberg' ? 
+                    'This book is available on Project Gutenberg, which only hosts public domain works.' : 
+                    'You can freely use, copy, and distribute this work.'
+            };
+        }
+
         const publishYear = book.publishYear;
         
         if (!publishYear) {
@@ -85,6 +107,14 @@ class PublicDomainApp {
             explanation: 'This book was published after 1977 and is likely still under copyright protection in the United States.',
             additionalInfo: 'Most works published after 1977 remain copyrighted for the life of the author plus 70 years, or 95 years for corporate works.'
         };
+    }
+
+    getSourceDisplay(source) {
+        const sources = {
+            'gutenberg': 'Project Gutenberg',
+            'openlibrary': 'Open Library',
+        };
+        return sources[source] || source;
     }
 
     escapeHtml(text) {

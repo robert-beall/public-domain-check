@@ -201,6 +201,7 @@ class BookSearch {
             case 'Enter':
                 e.preventDefault();
                 if (this.selectedIndex >= 0 && this.currentSuggestions[this.selectedIndex]) {
+                    console.log({data: this.selectedIndex});
                     this.selectSuggestion(this.selectedIndex);
                 }
                 break;

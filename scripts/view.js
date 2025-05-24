@@ -137,6 +137,21 @@ class PublicDomainView {
 
         if (this.elements['status-title']) {
             this.elements['status-title'].textContent = this.publicDomainStatus.status || 'Unknown Status';
+            switch(this.publicDomainStatus.status) {
+                case 'Public Domain':
+                    this.elements['status-title'].classList.add('status-public-domain');
+                    break;
+                case 'Unknown':
+                    this.elements['status-title'].classList.add('status-unknown');
+                    this.elements['description'].classList.add('hidden');
+                    break;
+                case 'Likely Copyrighted':
+                    this.elements['status-title'].classList.add('status-likely-copyright');
+                    break;
+                case 'Copyrighted':
+                    this.elements['status-title'].classList.add('status-copyright');
+                    break;
+            };
         }
 
         if (this.elements['status-description']) {

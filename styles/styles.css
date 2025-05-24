@@ -1,203 +1,91 @@
+/* styles.css - Main page styles */
+
 /* Reset and base styles */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    line-height: 1.6;
-    color: #333;
-    background-color: #f5f5f5;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
 }
 
-/* Header */
-header {
-    background: #fff;
-    padding: 2rem 1rem;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    margin-bottom: 2rem;
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 1rem 0;
+  color: #2c3e50;
 }
 
-header h1 {
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
+h1 {
+  font-size: 2.5rem;
+}
+h2 {
+  font-size: 2rem;
+}
+h3 {
+  font-size: 1.5rem;
+}
+h4 {
+  font-size: 1.25rem;
 }
 
-header p {
-    color: #666;
+p {
+  margin: 0 0 1rem 0;
 }
 
-/* Main content */
+/* Layout */
 main {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
 }
 
-/* Search container */
-.search-container {
-    position: relative;
-    margin-bottom: 2rem;
-}
-
-#book-search {
-    width: 100%;
-    padding: 1rem;
+/* Responsive typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 1.75rem;
+  }
+  h3 {
+    font-size: 1.25rem;
+  }
+  h4 {
     font-size: 1.1rem;
-    border: 2px solid #ddd;
-    border-radius: 8px;
-    background: #fff;
-    transition: border-color 0.3s ease;
-}
+  }
 
-#book-search:focus {
-    outline: none;
-    border-color: #3498db;
-}
-
-/* Suggestions dropdown */
-.suggestions-dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-top: none;
-    border-radius: 0 0 8px 8px;
-    max-height: 300px;
-    overflow-y: auto;
-    z-index: 1000;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-}
-
-.suggestion-item {
-    padding: 0.75rem 1rem;
-    cursor: pointer;
-    border-bottom: 1px solid #eee;
-    transition: background-color 0.2s ease;
-}
-
-.suggestion-item:hover,
-.suggestion-item.selected {
-    background-color: #f8f9fa;
-}
-
-.suggestion-item:last-child {
-    border-bottom: none;
-}
-
-.suggestion-title {
-    font-weight: 600;
-    color: #2c3e50;
-}
-
-.suggestion-author {
-    font-size: 0.9rem;
-    color: #666;
-    margin-top: 0.2rem;
-}
-
-.suggestion-year {
-    font-size: 0.8rem;
-    color: #999;
-}
-
-/* Book result */
-.book-result {
-    background: #fff;
-    padding: 2rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-.book-title {
-    font-size: 1.5rem;
-    color: #2c3e50;
-    margin-bottom: 0.5rem;
-}
-
-.book-author {
-    color: #666;
-    margin-bottom: 1rem;
-}
-
-.data-source {
-    margin: 0.5rem 0;
-    padding: 0.5rem;
-    background-color: #f8f9fa;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    color: #6c757d;
-}
-
-.public-domain-status {
+  main {
     padding: 1rem;
-    border-radius: 6px;
-    margin: 1rem 0;
-    font-weight: 600;
-}
-
-.status-public-domain {
-    background-color: #d4edda;
-    color: #155724;
-    border: 1px solid #c3e6cb;
-}
-
-.status-copyrighted {
-    background-color: #f8d7da;
-    color: #721c24;
-    border: 1px solid #f5c6cb;
-}
-
-.status-unknown {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeaa7;
+  }
 }
 
 /* Utility classes */
 .hidden {
-    display: none;
+  display: none;
 }
 
-.loading {
-    opacity: 0.6;
-    pointer-events: none;
-}
-
-/* Footer */
-footer {
-    text-align: center;
-    padding: 2rem 1rem;
-    margin-top: 4rem;
-    color: #666;
-    border-top: 1px solid #ddd;
-}
-
-footer a {
-    color: #3498db;
-    text-decoration: none;
-}
-
-footer a:hover {
-    text-decoration: underline;
-}
-
-/* Responsive design */
-@media (max-width: 768px) {
-    header {
-        padding: 1.5rem 1rem;
-    }
-    
-    main {
-        padding: 0 0.5rem;
-    }
-    
-    .book-result {
-        padding: 1.5rem;
-    }
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }

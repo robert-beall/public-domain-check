@@ -1,39 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Check if books are in the public domain in the United States"
-    />
-    <title>Public Domain Book Checker</title>
-    <link rel="stylesheet" href="styles/styles.css" />
-  </head>
 
-  <body>
-    <main>
-      <div id="placeholder" aria-live="polite" aria-role="status">
-        N/A
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Check if books are in the public domain in the United States" />
+  <title>Public Domain Book Checker</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <link rel="stylesheet" href="styles/view.css" />
+</head>
+
+<body>
+  <main>
+    <section id="placeholder" role="status" aria-live="polite" aria-label="Loading book information">
+      <div class="placeholder-container">
+        <div class="placeholder-header">
+          <div class="placeholder-thumbnail skeleton"></div>
+          <div class="placeholder-info">
+            <div class="placeholder-title skeleton"></div>
+            <div class="placeholder-author skeleton"></div>
+            <div class="placeholder-publication skeleton"></div>
+          </div>
+        </div>
+        
+        <div class="placeholder-status">
+          <div class="placeholder-status-header skeleton"></div>
+          <div class="placeholder-status-content">
+            <div class="placeholder-status-title skeleton"></div>
+            <div class="placeholder-status-text skeleton"></div>
+            <div class="placeholder-status-text skeleton short"></div>
+          </div>
+        </div>
+        
+        <div class="placeholder-description">
+          <div class="placeholder-description-header skeleton"></div>
+          <div class="placeholder-description-line skeleton"></div>
+          <div class="placeholder-description-line skeleton"></div>
+          <div class="placeholder-description-line skeleton short"></div>
+        </div>
+        
+        <div class="loading-text" aria-hidden="true">
+          <span class="loading-dots">Loading book information</span>
+        </div>
       </div>
-      <article id="book-display" class="hidden">
-        <img id="thumbnail" src="" />
-        <h2 id="title"></h2>
-        <h3 id="author"></h3>
-        <p><strong>Published: </strong><span id="publication-date"></span></p>
-        <h3>Status</h3>
-        <div>
+    </section>
+    <article id="book-display" class="hidden" role="article" aria-labelledby="title">
+      <div class="book-header">
+        <img id="thumbnail" src="" alt="" role="img" />
+        <div class="book-info">
+          <h2 id="title"></h2>
+          <h3 id="author"></h3>
+          <div class="publication-info">
+            <strong>Published:</strong> <span id="publication-date"></span>
+          </div>
+        </div>
+      </div>
+
+      <section class="status-section" aria-labelledby="status-heading">
+        <h3 id="status-heading">Public Domain Status</h3>
+        <div class="status-details">
           <h4 id="status-title"></h4>
           <p id="status-description"></p>
         </div>
         <p id="status"></p>
-        <h3>Description</h3>
+      </section>
+
+      <section class="description-section" aria-labelledby="description-heading">
+        <h3 id="description-heading">Description</h3>
         <p id="description"></p>
-      </article>      
-    </main>
-    <!-- Load JavaScript files -->
-    <!-- <script src="scripts/api.js"></script> -->
-    <!-- <script src="scripts/search.js"></script> -->
-    <script src="scripts/view.js"></script>
-  </body>
+        <div class="wikipedia-attribution">
+          <p>Description sourced from <a href="" id="wikipedia-link" class="wikipedia-link" target="_blank"
+              rel="noopener noreferrer">Wikipedia</a>. Click to read the full article.</p>
+        </div>
+      </section>
+    </article>
+  </main>
+  <!-- Load JavaScript files -->
+  <!-- <script src="scripts/api.js"></script> -->
+  <!-- <script src="scripts/search.js"></script> -->
+  <script src="scripts/view.js"></script>
+</body>
+
 </html>

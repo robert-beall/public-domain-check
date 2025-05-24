@@ -36,7 +36,8 @@ class PublicDomainView {
             'book-display', 
             'thumbnail', 
             'title', 
-            'author', 
+            'author',
+            'publication-date', 
             'status-title', 
             'status-description', 
             'description',
@@ -133,6 +134,10 @@ class PublicDomainView {
 
         if (this.elements.author) {
             this.elements.author.textContent = this.author || 'Unknown Author';
+        }
+
+        if (this.elements['publication-date']) {
+            this.elements['publication-date'].textContent = this.publicationDate || 'Year Unknown';
         }
 
         if (this.elements['status-title']) {

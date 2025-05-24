@@ -12,25 +12,27 @@
   </head>
 
   <body>
-    <header>
-      <h1>Public Domain Book Checker</h1>
-      <p>Find out if a book is in the public domain in the United States</p>
-    </header>
-
     <main>
-      
+      <div id="placeholder">
+        N/A
+      </div>
+      <article id="book-display" class="hidden">
+        <img id="thumbnail" src="" />
+        <h2 id="title"></h2>
+        <h3 id="author"></h3>
+        <h3>Status</h3>
+        <div>
+          <h4 id="status-title"></h4>
+          <p id="status-description"></p>
+        </div>
+        <p id="status"></p>
+        <h3>Description</h3>
+        <p id="description"></p>
+      </article>      
     </main>
-
-    <footer>
-      <p>
-        &copy; 2025 Public Domain Book Checker | <a href="#about">About</a> |
-        <a href="#disclaimer">Disclaimer</a>
-      </p>
-    </footer>
-
     <!-- Load JavaScript files -->
     <!-- <script src="scripts/api.js"></script> -->
     <!-- <script src="scripts/search.js"></script> -->
-    <script src="scripts/app.js"></script>
+    <script src="scripts/view.js"></script>
   </body>
 </html>

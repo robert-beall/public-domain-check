@@ -68,11 +68,6 @@ class PublicDomainView {
      * Show loading state with accessibility support
      */
     showLoadingState() {
-        if (this.elements.placeholder) {
-            this.elements.placeholder.setAttribute('aria-live', 'polite');
-            this.elements.placeholder.setAttribute('role', 'status');
-        }
-        
         if (this.elements['loading-spinner']) {
             this.elements['loading-spinner'].classList.remove('hidden');
         }

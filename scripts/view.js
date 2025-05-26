@@ -63,7 +63,6 @@ class PublicDomainView {
       this.testPublicDomainStatus();
       this.populatePageData();
     } catch (error) {
-        console.log('o no!!!!');
       this.handleError(error);
     }
   }
@@ -96,7 +95,7 @@ class PublicDomainView {
 
     if (this.elements["error-message"]) {
       // this.elements['error-message'].textContent = 'Sorry, we encountered an error loading the book information. Please try again later.';
-      this.elements['error-message'].classList.remove('hidden');
+      this.elements["error-message"].classList.remove("hidden");
       // this.elements['error-message'].setAttribute('role', 'alert');
       this.elements["error-message"].setAttribute("aria-live", "assertive");
     }
@@ -324,33 +323,68 @@ class PublicDomainView {
    * Fetch and process book data
    */
   async getData() {
-    try {
-        const bookData = await Promise.any([
-            this.fetchBook(this.title),
-            this.fetchBook(`${this.title}_(novel)`),
-            this.fetchBook(`${this.title}_(story)`)
-        ]);
-    
+    const titleVariants = [
+      this.title,
+      `${this.title}_(novel)`,
+      `${this.title}_(story)`,
+    ];
+
+    let bookData = null;
+    let successfulTitle = null;
+
+    // Try each title variant sequentially until one succeeds
+    for (const titleVariant of titleVariants) {
+      try {
+        bookData = await this.fetchBook(titleVariant);
         if (bookData) {
-            console.log({bookData});
-          let [publicationDate, author, , thumbnail, wikiUrl] = bookData;
-
-
-          if (publicationDate === null || typeof author === null) {
-            const [wikiDate, wikiAuthor] = await this.fetchBookHtml(this.title);
-            publicationDate = wikiDate;
-            author = wikiAuthor;
-          }
-
-          this.author = author;
-          this.publicationDate = publicationDate;
-          this.description = "";
-          this.thumbnail = thumbnail;
-          this.wikiUrl = wikiUrl;
+          successfulTitle = titleVariant;
+          break;
         }
-    } catch (e) {
-        throw e;
+      } catch (error) {
+        // Continue to next variant if current one fails
+        console.warn(
+          `Failed to fetch book with title "${titleVariant}":`,
+          error.message
+        );
+      }
     }
+
+    // If no book data was found, throw an error
+    if (!bookData) {
+      throw new Error(`No book data found for any variant of "${this.title}"`);
+    }
+
+    console.log({ bookData, successfulTitle });
+
+    // Destructure the book data with more descriptive variable names
+    const [publicationDate, author, , thumbnail, wikiUrl] = bookData;
+
+    // Check if we need to fetch additional data from HTML
+    let finalPublicationDate = publicationDate;
+    let finalAuthor = author;
+
+    if (!publicationDate || !author) {
+      try {
+        const [wikiDate, wikiAuthor] = await this.fetchBookHtml(
+          successfulTitle
+        );
+        finalPublicationDate = wikiDate || publicationDate;
+        finalAuthor = wikiAuthor || author;
+      } catch (error) {
+        console.warn(
+          `Failed to fetch additional book data from HTML for "${successfulTitle}":`,
+          error.message
+        );
+        // Continue with original data even if HTML fetch fails
+      }
+    }
+
+    // Set instance properties
+    this.author = finalAuthor;
+    this.publicationDate = finalPublicationDate;
+    this.description = "";
+    this.thumbnail = thumbnail;
+    this.wikiUrl = wikiUrl;
   }
 
   /**
@@ -422,68 +456,66 @@ class PublicDomainView {
 
   async fetchBookHtml(title) {
     if (!this.title?.trim()) {
-        throw new Error("No book title provided");
-      }
-  
-      const controller = new AbortController();
-      const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
-  
-      try {
-        const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(
-          title
-        )}`;
-  
-        const response = await fetch(apiUrl, {
-          signal: controller.signal,
-          headers: {
-            Accept: "text/html",
-            "User-Agent": "PublicDomainChecker/1.0",
-          },
-        });
-  
-        clearTimeout(timeoutId);
-  
-        if (!response.ok) {
-          if (response.status === 404) {
-            throw new Error(`Book "${this.title}" not found in Wikipedia`);
-          }
-          throw new Error(
-            `Wikipedia API error: ${response.status} ${response.statusText}`
-          );
-        }
-  
-        const data = await response.text();
+      throw new Error("No book title provided");
+    }
 
-  
-        if (!data || typeof data !== "string") {
-          throw new Error("Invalid response from Wikipedia API");
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout
+
+    try {
+      const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(
+        title
+      )}`;
+
+      const response = await fetch(apiUrl, {
+        signal: controller.signal,
+        headers: {
+          Accept: "text/html",
+          "User-Agent": "PublicDomainChecker/1.0",
+        },
+      });
+
+      clearTimeout(timeoutId);
+
+      if (!response.ok) {
+        if (response.status === 404) {
+          throw new Error(`Book "${this.title}" not found in Wikipedia`);
         }
-        
-        return this.parseWikiHtml(
-          data || ""
+        throw new Error(
+          `Wikipedia API error: ${response.status} ${response.statusText}`
         );
-      } catch (error) {
-        clearTimeout(timeoutId);
-  
-        if (error.name === "AbortError") {
-          throw new Error(
-            "Request timed out. Please check your internet connection and try again."
-          );
-        }
-  
-        console.error("Wikipedia query failed:", error);
-        throw error;
       }
+
+      const data = await response.text();
+
+      if (!data || typeof data !== "string") {
+        throw new Error("Invalid response from Wikipedia API");
+      }
+
+      return this.parseWikiHtml(data || "");
+    } catch (error) {
+      clearTimeout(timeoutId);
+
+      if (error.name === "AbortError") {
+        throw new Error(
+          "Request timed out. Please check your internet connection and try again."
+        );
+      }
+
+      console.error("Wikipedia query failed:", error);
+      throw error;
+    }
   }
 
   parseWikiHtml(html) {
-    console.log('parseWikiHtml');
-    const pattern = /.*"author":\{"wt":"\[\[([^\]]+)\]\]"\}.*\"pub_date\"\:\{\"wt\"\:.*([0-9]{4}).*/i;
+    console.log("parseWikiHtml");
+    const pattern =
+      /.*"author":\{"wt":"\[\[([^\]]+)\]\]"\}.*\"pub_date\"\:\{\"wt\"\:.*([0-9]{4}).*/i;
 
     const matches = html.match(pattern);
 
     if (!matches) {
-        return [undefined, undefined];
+      return [undefined, undefined];
     }
 
     const [, author, publicationDate] = [...matches];

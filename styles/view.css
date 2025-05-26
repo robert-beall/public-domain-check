@@ -420,3 +420,393 @@
     content: "...";
   }
 }
+
+/* error.css - Error message styles */
+
+#error-message {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  border-left: 4px solid #e74c3c;
+  padding: 2rem;
+  margin: 2rem 0;
+  animation: slideIn 0.3s ease-out;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.error-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+/* Error icon */
+.error-icon {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  color: #e74c3c;
+  background: #fdf2f2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.error-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Error content */
+.error-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.error-title {
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.error-description {
+  color: #666;
+  margin: 0 0 1.5rem 0;
+  line-height: 1.6;
+}
+
+/* Error suggestions */
+.error-suggestions {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.error-suggestions h3 {
+  color: #2c3e50;
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
+
+.error-suggestions ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  color: #555;
+}
+
+.error-suggestions li {
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+}
+
+.error-suggestions li:last-child {
+  margin-bottom: 0;
+}
+
+/* Error actions */
+.error-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.retry-button,
+.contact-button {
+  padding: 0.75rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  text-decoration: none;
+  border: none;
+  font-family: inherit;
+}
+
+.retry-button {
+  background: #3498db;
+  color: white;
+  border: 2px solid #3498db;
+}
+
+.retry-button:hover {
+  background: #2980b9;
+  border-color: #2980b9;
+  transform: translateY(-1px);
+}
+
+.retry-button:active {
+  transform: translateY(0);
+}
+
+.retry-button svg {
+  width: 16px;
+  height: 16px;
+}
+
+.contact-button {
+  background: transparent;
+  color: #666;
+  border: 2px solid #ddd;
+}
+
+.contact-button:hover {
+  background: #f8f9fa;
+  border-color: #bbb;
+  color: #333;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #error-message {
+    padding: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  .error-container {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .error-icon {
+    align-self: center;
+  }
+
+  .error-suggestions {
+    padding: 1rem;
+  }
+
+  .error-suggestions ul {
+    text-align: left;
+  }
+
+  .error-actions {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .retry-button,
+  .contact-button {
+    justify-content: center;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  #error-message {
+    padding: 1rem;
+    border-radius: 0;
+    margin: 0;
+    box-shadow: none;
+    border-left: 4px solid #e74c3c;
+    border-top: 1px solid #ecf0f1;
+    border-bottom: 1px solid #ecf0f1;
+  }
+
+  .error-title {
+    font-size: 1.25rem;
+  }
+
+  .error-icon {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+
+  .error-icon svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  #error-message {
+    animation: none;
+  }
+
+  .retry-button:hover,
+  .contact-button:hover {
+    transform: none;
+  }
+}
+
+/* Focus styles for keyboard navigation */
+.retry-button:focus,
+.contact-button:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  #error-message {
+    border-left-width: 6px;
+    border-left-color: #cc0000;
+  }
+
+  .error-icon {
+    background: #ffcccc;
+    color: #cc0000;
+  }
+
+  .retry-button {
+    background: #0066cc;
+    border-color: #0066cc;
+  }
+}
+
+/* Description preview styles */
+.description-preview {
+  margin-top: 1rem;
+}
+
+.description-text {
+  line-height: 1.7;
+  color: #444;
+  margin: 0 0 1rem 0;
+  font-size: 1rem;
+
+  /* CSS-based truncation for responsive line clamping */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  -webkit-line-clamp: 3; /* Desktop: 3 lines */
+}
+
+.read-more-container {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.75rem;
+}
+
+.read-more-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #3498db;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e3f2fd;
+  border-radius: 6px;
+  background: #f8fbff;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.read-more-link:hover {
+  background: #e3f2fd;
+  border-color: #3498db;
+  color: #2980b9;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(52, 152, 219, 0.15);
+}
+
+.read-more-link:active {
+  transform: translateY(0);
+}
+
+.read-more-text {
+  font-size: 0.9rem;
+}
+
+.external-link-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  opacity: 0.8;
+}
+
+.read-more-link:hover .external-link-icon {
+  opacity: 1;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .description-text {
+    -webkit-line-clamp: 2; /* Tablet: 3 lines */
+    font-size: 0.95rem;
+  }
+
+  .read-more-container {
+    justify-content: center;
+  }
+
+  .read-more-link {
+    padding: 0.75rem 1.25rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .description-text {
+    -webkit-line-clamp: 2; /* Mobile: 2 lines */
+    font-size: 0.9rem;
+  }
+
+  .read-more-link {
+    font-size: 0.9rem;
+  }
+
+  .read-more-text {
+    font-size: 0.85rem;
+  }
+}
+
+/* Focus styles for accessibility */
+.read-more-link:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* Fallback for browsers that don't support line-clamp */
+@supports not (-webkit-line-clamp: 1) {
+  .description-text {
+    max-height: 6.8em; /* Approximate 4 lines */
+    overflow: hidden;
+    position: relative;
+  }
+
+  .description-text::after {
+    content: "...";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: white;
+    padding-left: 1rem;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .read-more-link {
+    border-color: #0066cc;
+    background: transparent;
+  }
+
+  .read-more-link:hover {
+    background: #f0f8ff;
+    border-color: #0066cc;
+  }
+}

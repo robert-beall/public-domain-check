@@ -36,10 +36,10 @@ h2 {
   font-size: 2rem;
 }
 h3 {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 h4 {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
 p {
@@ -88,4 +88,52 @@ main {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 12px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-green {
+    background-color: #22c55e;
+}
+
+.badge-orange {
+    background-color: #f97316;
+}
+
+.badge-red {
+    background-color: #ef4444;
+}
+
+.badge-gray {
+    background-color: #6b7280;
+}
+
+/* Demo styling */
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f8f9fa;
+}
+
+.demo {
+    margin: 20px 0;
+}
+
+.demo h3 {
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.badge + .badge {
+    margin-left: 8px;
 }

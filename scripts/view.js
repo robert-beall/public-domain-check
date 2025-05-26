@@ -354,8 +354,6 @@ class PublicDomainView {
       throw new Error(`No book data found for any variant of "${this.title}"`);
     }
 
-    console.log({ bookData, successfulTitle });
-
     // Destructure the book data with more descriptive variable names
     const [publicationDate, author, , thumbnail, wikiUrl] = bookData;
 
